@@ -1,5 +1,5 @@
-const fs = require('fs'); //stat
-const path = require('path'); // path.extname(path)
+const fs = require('fs');
+const path = require('path');
 let folderToCheck = 'secret-folder';
 const folderPath = path.join(__dirname, folderToCheck);
 
@@ -30,9 +30,13 @@ fs.readdir(folderPath, { encoding: 'utf8', withFileTypes: 'true' }, (err, conten
       }
       let base = path.basename(array[i]);
       let baseLen = base.split('.').length;
-      let ext = path.extname(array[i]);
+      let ext = path.extname(array[i]).split('.').join('');
 
-      console.log(`${base.split('.').splice(0, baseLen - 1).join('.')} - ${ext} - ${(res.size / 1024).toFixed(3)}kb`);
+      console.log((baseLen === 1)
+        ? `${base.split('.')} - ${ext} - ${(res.size / 1024).toFixed(3)}kb`
+        : `${base.split('.').splice(0, baseLen - 1).join('.')} - ${ext} - ${(res.size / 1024).toFixed(3)}kb`);
     })
   }
 });
+
+
