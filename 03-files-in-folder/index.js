@@ -28,7 +28,11 @@ fs.readdir(folderPath, { encoding: 'utf8', withFileTypes: 'true' }, (err, conten
       if (err) {
         throw err;
       }
-      console.log(`${path.basename(array[i]).split('.').join(' - ')} - ${(res.size / 1024).toFixed(3)}kb`);
+      let base = path.basename(array[i]);
+      let baseLen = base.split('.').length;
+      let ext = path.extname(array[i]);
+
+      console.log(`${base.split('.').splice(0, baseLen - 1).join('.')} - ${ext} - ${(res.size / 1024).toFixed(3)}kb`);
     })
   }
 });
